@@ -6,7 +6,11 @@ best <- function(state, outcome) {
 	if(! validState(state, data)) {
 		stop("invalid state")
 	}
-	unique(data[,7])
+
+	if (outcome == "heart attack") {
+		min <- lowest_heart_attack(data, state)
+		data[data$Hospital.30.Day.Death..Mortality..Rates.from.Heart.Attack == sprintf("%.1f", min) & data$State == state, "Hospital.Name"]
+	}
 }
 
 validState <- function(state, data) {
@@ -15,4 +19,11 @@ validState <- function(state, data) {
 
 validOutcome <- function(outcome) {
 	outcome %in% c("heart attack", "heart failure", "pneumonia")
+}
+
+lowest_heart_attack <- function(data, state) {
+	v <- as.vector(data[data$State == state, "Hospital.30.Day.Death..Mortality..Rates.from.Heart.Attack"])
+	v <- v[v != "Not Available"]
+	v <- as.numeric(v)
+	min(v)
 }
