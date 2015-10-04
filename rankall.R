@@ -12,17 +12,7 @@ rankall <- function(outcome, num="best") {
 		v <- ranked_pneumonia(data)
 	}
 
-#	v <- cleanse(v)
 	choose(v, num)
-}
-
-cleanse <- function(list) {
-	new_list <- list()
-	for (h in list) {
-		h <- as.data.frame(h)
-		new_list <- rbind(new_list, h[,1:2])
-	}
-	new_list
 }
 
 choose <- function(list, num) {
@@ -68,7 +58,7 @@ validOutcome <- function(outcome) {
 
 ranked_heart_attack <- function(data) {
 	v <- data[!is.na(data$"Hospital.30.Day.Death..Mortality..Rates.from.Heart.Attack"), c("Hospital.Name", "State", "Hospital.30.Day.Death..Mortality..Rates.from.Heart.Attack")]
-	v <- v[order(v[,2], v[,3]), 1:2]
+	v <- v[order(v[,2], v[,3], v[,1]), 1:2]
 	colnames(v)[1] <- "hospital"
 	colnames(v)[2] <- "state"
 	v <- split(v, v$state)
@@ -77,7 +67,7 @@ ranked_heart_attack <- function(data) {
 
 ranked_heart_failure <- function(data, state) {
 	v <- data[!is.na(data$"Hospital.30.Day.Death..Mortality..Rates.from.Heart.Failure"), c("Hospital.Name", "State", "Hospital.30.Day.Death..Mortality..Rates.from.Heart.Failure")]
-	v <- v[order(v[,2], v[,3]), 1:2]
+	v <- v[order(v[,2], v[,3], v[,1]), 1:2]
 	colnames(v)[1] <- "hospital"
 	colnames(v)[2] <- "state"
 	v <- split(v, v$state)
@@ -86,7 +76,7 @@ ranked_heart_failure <- function(data, state) {
 
 ranked_pneumonia <- function(data, state) {
 	v <- data[!is.na(data$"Hospital.30.Day.Death..Mortality..Rates.from.Pneumonia"), c("Hospital.Name", "State", "Hospital.30.Day.Death..Mortality..Rates.from.Pneumonia")]
-	v <- v[order(v[,2], v[,3]), 1:2]
+	v <- v[order(v[,2], v[,3], v[,1]), 1:2]
 	colnames(v)[1] <- "hospital"
 	colnames(v)[2] <- "state"
 	v <- split(v, v$state)
