@@ -15,7 +15,7 @@ rankhospital <- function(state, outcome, num="best") {
 		v <- ranked_pneumonia(data, state)
 	}
 
-	choose(v, num)
+	as.character(choose(v, num)[1,1])
 }
 
 choose <- function(data, num) {

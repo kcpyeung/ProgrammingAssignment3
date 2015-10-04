@@ -9,14 +9,16 @@ best <- function(state, outcome) {
 
 	if (outcome == "heart attack") {
 		min <- lowest_heart_attack(data, state)
-		data[data$Hospital.30.Day.Death..Mortality..Rates.from.Heart.Attack == sprintf("%.1f", min) & data$State == state, "Hospital.Name"]
+		v <- data[data$Hospital.30.Day.Death..Mortality..Rates.from.Heart.Attack == sprintf("%.1f", min) & data$State == state, "Hospital.Name"]
 	} else if (outcome == "heart failure") {
 		min <- lowest_heart_failure(data, state)
-		data[data$Hospital.30.Day.Death..Mortality..Rates.from.Heart.Failure == sprintf("%.1f", min) & data$State == state, "Hospital.Name"]
+		v <- data[data$Hospital.30.Day.Death..Mortality..Rates.from.Heart.Failure == sprintf("%.1f", min) & data$State == state, "Hospital.Name"]
 	} else if (outcome == "pneumonia") {
 		min <- lowest_pneumonia(data, state)
-		data[data$Hospital.30.Day.Death..Mortality..Rates.from.Pneumonia == sprintf("%.1f", min) & data$State == state, "Hospital.Name"]
+		v <- data[data$Hospital.30.Day.Death..Mortality..Rates.from.Pneumonia == sprintf("%.1f", min) & data$State == state, "Hospital.Name"]
 	}
+
+	as.character(v)
 }
 
 validState <- function(state, data) {
