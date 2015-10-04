@@ -1,4 +1,4 @@
-rankhospital <- function(state, outcome, num) {
+rankhospital <- function(state, outcome, num="best") {
 	if(! validOutcome(outcome)) {
 		stop("invalid outcome")
 	}
